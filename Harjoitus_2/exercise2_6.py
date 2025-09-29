@@ -2,10 +2,9 @@
 # a, b, c ∈ R
 # a != 0
 # Kysy käyttäjältä eri muuttujien arvot (a, b ja c),
-# ja tulosta lopuksi
-# vastaus (eli x:n arvo(t)).
+# ja tulosta lopuksi vastaus (eli x:n arvo(t)).
 
-import cmath
+import math
 import sys
 
 def kysely():
@@ -16,7 +15,7 @@ def kysely():
     except ValueError:
         print("Virheellinen syöte. Käytä numeerista arvoa.")
         sys.exit()
-    
+   
     if a == 0:
         print("a ei voi olla 0")
         sys.exit()
@@ -24,22 +23,38 @@ def kysely():
         return a, b, c
 
 def ratkaisija(a, b, c):
-    dis = (b**2) - (4 * a * c)
-    ans1 = (-b - cmath.sqrt(dis)) / (2 * a)
-    ans2 = (-b + cmath.sqrt(dis)) / (2 * a)
-    return ans1, ans2
+    discriminant = (b**2) - (4 * a * c)
+    
+    if discriminant > 0:
+        # Two real solutions
+        ans1 = (-b - math.sqrt(discriminant)) / (2 * a)
+        ans2 = (-b + math.sqrt(discriminant)) / (2 * a)
+        return ans1, ans2, "real"
+    elif discriminant == 0:
+        # One real solution
+        ans = -b / (2 * a)
+        return ans, ans, "real"
+    else:
+        # Complex solutions
+        real_part = -b / (2 * a)
+        imag_part = math.sqrt(abs(discriminant)) / (2 * a)
+        return (real_part, -imag_part), (real_part, imag_part), "complex"
 
 def main():
     a, b, c = kysely()
-    ans1, ans2 = ratkaisija(a, b, c)
-    
-    # Check if solutions are real or complex
-    if ans1.imag == 0 and ans2.imag == 0:
-        # Real solutions
-        print(f"Ratkaisut ovat: {ans1.real} ja {ans2.real}")
+    ans1, ans2, solution_type = ratkaisija(a, b, c)
+   
+    if solution_type == "real":
+        if ans1 == ans2:
+            print(f"Ratkaisu on: {ans1}")
+        else:
+            print(f"Ratkaisut ovat: {ans1} ja {ans2}")
     else:
         # Complex solutions
-        print(f"Ratkaisut ovat: {ans1} ja {ans2}")
+        if ans1[1] < 0:
+            print(f"Ratkaisut ovat: {ans1[0]}{ans1[1]}i ja {ans2[0]}+{ans2[1]}i")
+        else:
+            print(f"Ratkaisut ovat: {ans1[0]}+{ans1[1]}i ja {ans2[0]}+{ans2[1]}i")
 
 if __name__ == "__main__":
     main()
