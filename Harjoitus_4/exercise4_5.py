@@ -1,5 +1,3 @@
-# coding: iso-8859-1 -*-
-
 try:
     luku = int(input("Anna kokonaisluku: \n"))
 except ValueError:
