@@ -4,7 +4,7 @@ appliances = ("PHILIPS_Vedenkeitin_HD4646_2020_09_21_C_1",
 "WHIRLPOOL_Mikroaaltouuni_MCP345WH_2019_01_15_C_1",
 "ROSENLEW_Pakastin_RPP2330_2017_01_29_C_2",
 "ELECTROLUX_Jääkaappi_ERF4114AOW_2017_11_07_C_2")
-categories = ("Muut,", "Pienlaitteet","Kylmälaitteet","Sekoittimet")
+categories = ("Muut", "Pienlaitteet","Kylmälaitteet","Sekoittimet")
 
 brand = [item.split('_')[0] for item in appliances]
 model = [item.split('_')[1] for item in appliances]
